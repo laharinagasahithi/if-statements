@@ -1,0 +1,142 @@
+declare 
+num_sma number :=8;
+num_lar number :=5;
+num_temp number;
+begin
+if (num_sma>num_lar) then
+    num_temp:=num_sma;
+    num_sma :=num_lar;
+    num_lar :=num_temp;
+end if;
+dbms_output.put_line('num_small ='||num_sma);
+dbms_output.put_line('num_large ='||num_lar);
+end;
+
+
+2.
+set serveroutput on;
+declare
+sal_ach number := 2300;
+tar_qty number := 2000;
+emp_id number :=144;
+inc number:=0;
+up varchar2(3) := 'no';
+begin
+if (sal_ach> (tar_qty+200)) then
+    inc := (sal_ach-tar_qty)/4;
+    update emp set sal =sal+inc where empno=emp_id;
+    up := 'yes';
+end if;
+dbms_output.put_line('table updated' || up ||',' ||'incentive='||inc|| '.');
+end;
+
+
+3.
+set serveroutput on;
+declare
+n1 number := 5;
+begin
+if (mod(n1,2)=0) then
+dbms_output.put_line('the numbers '|| n1 ||' is even');
+else
+dbms_output.put_line('the numbers '|| n1 ||' is odd');
+end if;
+dbms_output.put_line('done successfully');
+end;
+
+
+
+4.
+set serveroutput on;
+declare
+sal_ach number := 3600;
+tar_qty number := 3000;
+emp_id number :=145;
+inc number :=0;
+begin
+if (sal_ach> (tar_qty+200)) then
+inc := (sal_ach-tar_qty)/4;
+else
+inc :=75;
+end if;
+dbms_output.put_line('incentive =' || inc);
+update emp set sal =sal+inc where empno=emp_id;
+end;
+
+
+5.
+set serveroutput on;
+declare
+dt1 date := to_date('17-DEC-1980', 'DD-MON-YYYY');
+get_day VARCHAR2(15);
+begin
+get_day:=RTRIM(TO_CHAR(dt1,'day'));
+if (get_day in('SATURDAY','SUNDAY')) THEN
+dbms_output.put_line('The day of the given data is '||get_day||' and it falls on weekend');
+else
+dbms_output.put_line('The day of the given data is '||get_day||' and it does not falls on weekend');
+end if;
+dbms_output.put_line('execution done successfully');
+end;
+
+
+6.
+declare
+sal_ach number :=45000;
+inc number :=0;
+begin
+if (sal_ach > 44000) then
+inc := 1800;
+elsif (sal_ach > 32000) then
+inc := 800;
+else
+inc := 500;
+end if;
+dbms_output.put_line('sale achieved : ' || sal_ach||', incentive:' || inc||'.');
+end;
+
+7.
+declare
+tot_emp number;
+begin
+select count(*) into tot_emp from emp e join dept d on e.deptno=d.deptno where e.deptno=10;
+dbms_output.put_line('the employees are in the department 10: '||to_char(tot_emp));
+if tot_emp >= 45 then
+dbms_output.put_line('there are no vacancies in the department 10.');
+else
+dbms_output.put_line('there are some vacancies in the department 10.');
+end if;
+end;
+
+8.
+declare
+grd char(1) := 'A';
+begin
+if grd = 'A' then
+dbms_output.put_line('your grade is outstanding');
+elsif grd = 'B' then
+dbms_output.put_line('your grade is excellent');
+elsif grd = 'C' then
+dbms_output.put_line('your grade is very good');
+elsif grd = 'D' then
+dbms_output.put_line('your grade is average');
+elsif grd = 'f' then
+dbms_output.put_line('your grade is poor');
+else
+dbms_output.put_line('no such grade is found');
+end if;
+end;
+
+9.
+declare
+tot_emp number;
+get_dept_id number := 7356;
+begin
+select count(*) into tot_emp from emp e join dept d on e.deptno=d.deptno where e.deptno=10;
+dbms_output.put_line('the employees are in the department '||get_dept_id|| ' is:'||to_char(tot_emp));
+if tot_emp >= 2 then
+dbms_output.put_line('there are no vacancies in the department ' ||get_dept_id);
+else
+dbms_output.put_line('there are' || to_char(tot_emp)||'vacancies in department ' ||get_dept_id);
+end if;
+end;
